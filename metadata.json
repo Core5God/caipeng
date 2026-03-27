@@ -1,0 +1,7 @@
+{
+  "name": "万物识 - AI 万物识别科普站",
+  "description": "随手拍秒认品种，获取植物、宠物、昆虫及古建筑的深度科普与互动养护建议。",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
