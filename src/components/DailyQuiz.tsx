@@ -50,6 +50,20 @@ export const DailyQuiz: React.FC = () => {
     }
   };
 
+  const shareAchievement = () => {
+    const text = `我在 Omni-ID 智力觉醒挑战中获得了 ${score * 10} 分！准确率 ${Math.round((score / questions.length) * 100)}%。快来一起探索万物奥秘吧！`;
+    if (navigator.share) {
+      navigator.share({
+        title: 'Omni-ID 挑战成就',
+        text: text,
+        url: window.location.href,
+      }).catch(console.error);
+    } else {
+      navigator.clipboard.writeText(text);
+      alert('成就已复制到剪贴板！');
+    }
+  };
+
   if (loading) return (
     <div className="w-full max-w-4xl mx-auto space-y-16">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
@@ -73,30 +87,31 @@ export const DailyQuiz: React.FC = () => {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="w-full max-w-4xl mx-auto p-16 md:p-24 glass-panel rounded-[4rem] border-white/[0.08] text-center space-y-16 relative overflow-hidden"
+        className="w-full max-w-4xl mx-auto p-12 md:p-20 glass-panel rounded-[4rem] border-white/[0.08] text-center space-y-12 relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/5 via-transparent to-brand-purple/5" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl -translate-y-1/2" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-white/[0.02]" />
         
-        <div className="relative z-10 space-y-10">
+        <div className="relative z-10 space-y-8">
           <motion.div
             initial={{ scale: 0, rotate: -45 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ type: "spring", damping: 15, stiffness: 150 }}
-            className="w-32 h-32 rounded-[2.5rem] bg-white text-brand-black flex items-center justify-center mx-auto shadow-[0_32px_64px_-16px_rgba(255,255,255,0.4)]"
+            className="w-24 h-24 rounded-[2rem] bg-white text-brand-black flex items-center justify-center mx-auto shadow-[0_20px_40px_-10px_rgba(255,255,255,0.3)]"
           >
-            <Trophy size={56} />
+            <Trophy size={40} />
           </motion.div>
           
-          <div className="space-y-6">
-            <h2 className="text-6xl md:text-8xl font-serif italic tracking-tighter leading-none">挑战完成</h2>
-            <p className="text-2xl text-white/40 font-light tracking-wide max-w-xl mx-auto leading-relaxed">
-              恭喜！您已成功完成今日的智力觉醒挑战。知识的种子已在您的脑海中生根发芽。
+          <div className="space-y-4">
+            <h2 className="text-5xl md:text-7xl font-display font-bold tracking-tighter leading-none bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
+              挑战完成
+            </h2>
+            <p className="text-lg md:text-xl text-white/40 font-light tracking-wide max-w-xl mx-auto leading-relaxed">
+              恭喜！您已成功完成今日的智力觉醒挑战。<br/>知识的种子已在您的脑海中生根发芽。
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
           {[
             { label: 'Total Score', value: score * 10, unit: 'pts', icon: Sparkles },
             { label: 'Accuracy', value: Math.round((score / questions.length) * 100), unit: '%', icon: Brain },
@@ -107,28 +122,36 @@ export const DailyQuiz: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + idx * 0.1 }}
-              className="p-10 rounded-[2.5rem] bg-white/[0.03] border border-white/[0.05] space-y-4 hover:bg-white/[0.06] transition-colors duration-500"
+              className="p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/[0.05] space-y-3"
             >
-              <div className="flex items-center justify-center gap-3 text-white/30">
-                <stat.icon size={14} />
-                <span className="text-[10px] uppercase tracking-[0.4em] font-black">{stat.label}</span>
+              <div className="flex items-center justify-center gap-2 text-white/20">
+                <stat.icon size={12} />
+                <span className="text-[9px] uppercase tracking-[0.3em] font-bold">{stat.label}</span>
               </div>
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-5xl font-display font-bold tracking-tighter">{stat.value}</span>
-                <span className="text-lg font-light text-white/20">{stat.unit}</span>
+                <span className="text-4xl font-display font-bold tracking-tighter">{stat.value}</span>
+                <span className="text-sm font-light text-white/20">{stat.unit}</span>
               </div>
             </motion.div>
           ))}
         </div>
 
-        <div className="pt-10 relative z-10">
+        <div className="flex flex-col md:flex-row gap-6 justify-center relative z-10 pt-4">
           <motion.button
-            whileHover={{ scale: 1.05, y: -5 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => window.location.reload()}
-            className="px-16 py-8 rounded-full bg-white text-brand-black font-black text-[11px] uppercase tracking-[0.5em] shadow-[0_32px_64px_-16px_rgba(255,255,255,0.5)] hover:shadow-[0_40px_80px_-20px_rgba(255,255,255,0.7)] transition-all duration-500"
+            onClick={fetchQuestions}
+            className="px-10 py-5 rounded-full bg-white/5 border border-white/10 text-white font-display font-bold text-[10px] uppercase tracking-[0.3em] hover:bg-white/10 transition-all"
           >
-            返回主页 / Explore More
+            再来一次 / PLAY AGAIN
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={shareAchievement}
+            className="px-10 py-5 rounded-full bg-white text-brand-black font-display font-bold text-[10px] uppercase tracking-[0.3em] shadow-[0_20px_40px_-10px_rgba(255,255,255,0.4)] transition-all"
+          >
+            分享成就 / SHARE ACHIEVEMENT
           </motion.button>
         </div>
       </motion.div>
@@ -269,9 +292,9 @@ export const DailyQuiz: React.FC = () => {
               <div className="flex justify-end">
                 <button
                   onClick={nextQuestion}
-                  className="btn-primary group !py-5 !px-12 !text-xs uppercase tracking-[0.3em] font-black shadow-2xl hover:shadow-white/10"
+                  className="btn-primary group !py-5 !px-12 !text-[10px] uppercase tracking-[0.3em] font-black shadow-2xl hover:shadow-white/10"
                 >
-                  {currentIndex === questions.length - 1 ? 'Complete Challenge' : 'Next Question'}
+                  {currentIndex === questions.length - 1 ? '完成挑战 / COMPLETE CHALLENGE' : '下一题 / NEXT QUESTION'}
                   <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-300" />
                 </button>
               </div>

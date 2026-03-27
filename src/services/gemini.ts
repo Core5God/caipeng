@@ -150,3 +150,30 @@ export async function getDailyQuiz() {
   const data = await getDailyData();
   return data.quiz;
 }
+
+export async function generateIllustration(subject: string): Promise<string> {
+  const response = await ai.models.generateContent({
+    model: 'gemini-2.5-flash-image',
+    contents: {
+      parts: [
+        {
+          text: `A high-quality, artistic illustration of ${subject}. 
+          Style: Modern, clean, slightly futuristic, cinematic lighting, 8k resolution, highly detailed. 
+          The subject should be centered and clearly visible against a complementary background.`,
+        },
+      ],
+    },
+    config: {
+      imageConfig: {
+        aspectRatio: "1:1",
+      },
+    },
+  });
+
+  for (const part of response.candidates[0].content.parts) {
+    if (part.inlineData) {
+      return `data:image/png;base64,${part.inlineData.data}`;
+    }
+  }
+  throw new Error("Failed to generate image");
+}

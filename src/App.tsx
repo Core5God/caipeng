@@ -42,16 +42,16 @@ export default function App() {
   };
 
   const confirmIdentification = async () => {
-    if (!previewImage) return;
+    if (!previewImage || isProcessing) return;
     
     setIsProcessing(true);
     const base64 = previewImage.split(',')[1];
     setCurrentImage(previewImage);
-    setPreviewImage(null);
     
     try {
       const res = await identifyImage(base64);
       setResult(res);
+      setPreviewImage(null); // Clear preview only on success
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error(err);
@@ -62,6 +62,7 @@ export default function App() {
   };
 
   const cancelPreview = () => {
+    if (isProcessing) return;
     setPreviewImage(null);
   };
 
@@ -98,7 +99,7 @@ export default function App() {
         </motion.div>
         
         <nav className="hidden md:flex items-center gap-8">
-          {['每日科普', '热门排行', '知识挑战'].map((item, i) => (
+          {['每日科普 / FACT', '热门排行 / TRENDS', '知识挑战 / QUIZ'].map((item, i) => (
             <motion.a 
               key={item}
               href={`#${['fact', 'trending', 'quiz'][i]}`}
@@ -106,7 +107,7 @@ export default function App() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.1 * i }}
               whileHover={{ y: -2 }}
-              className="text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-white transition-all"
+              className="text-[9px] uppercase tracking-[0.2em] text-white/40 hover:text-white transition-all"
             >
               {item}
             </motion.a>
@@ -118,10 +119,10 @@ export default function App() {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             onClick={reset}
-            className="btn-secondary !py-2 !px-6 !text-[10px] uppercase tracking-widest"
+            className="btn-secondary !py-2 !px-6 !text-[9px] uppercase tracking-widest"
           >
             <ArrowLeft size={12} />
-            返回
+            返回 / BACK
           </motion.button>
         ) : (
           <motion.div 
@@ -130,7 +131,7 @@ export default function App() {
             className="flex items-center gap-4"
           >
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-[10px] uppercase tracking-widest text-white/40">AI Agent Online</span>
+            <span className="text-[9px] uppercase tracking-widest text-white/40">AI 助手在线 / AI AGENT ONLINE</span>
           </motion.div>
         )}
       </header>
@@ -247,7 +248,7 @@ export default function App() {
                               {isProcessing ? "正在解析..." : "确认识别"}
                             </button>
                           </div>
-                          <p className="mt-6 text-[10px] text-white/40 uppercase tracking-[0.3em]">确认后将消耗 AI 算力进行深度解析</p>
+                          <p className="mt-6 text-[9px] text-white/40 uppercase tracking-[0.3em]">确认后将消耗 AI 算力进行深度解析 / AI POWERED ANALYSIS</p>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -269,7 +270,7 @@ export default function App() {
                           />
                         ))}
                       </div>
-                      <span className="text-[10px] uppercase tracking-[0.8em] font-medium text-white/40">AI 正在深度解析中...</span>
+                      <span className="text-[9px] uppercase tracking-[0.8em] font-medium text-white/40">AI 正在深度解析中... / AI ANALYZING...</span>
                     </motion.div>
                   )}
                 </div>
@@ -280,7 +281,7 @@ export default function App() {
                   transition={{ delay: 2 }}
                   className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-20"
                 >
-                  <span className="text-[10px] uppercase tracking-[0.4em]">Scroll to Explore</span>
+                  <span className="text-[9px] uppercase tracking-[0.4em]">向下探索 / SCROLL TO EXPLORE</span>
                   <ChevronDown className="w-4 h-4 animate-bounce" />
                 </motion.div>
               </motion.section>

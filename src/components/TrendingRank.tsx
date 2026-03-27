@@ -52,10 +52,10 @@ export const TrendingRank: React.FC = () => {
         <div className="space-y-4">
           <div className="flex items-center gap-3 text-white/30">
             <TrendingUp size={16} />
-            <span className="text-[10px] uppercase tracking-[0.4em] font-bold">每日科普热搜</span>
+            <span className="text-[9px] uppercase tracking-[0.4em] font-bold">每日科普热搜 / TRENDING TOPICS</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight">
-            探索当下热门
+            探索当下热门 / EXPLORE TRENDS
           </h2>
         </div>
         <p className="text-sm text-white/30 max-w-xs leading-relaxed">
@@ -81,17 +81,9 @@ export const TrendingRank: React.FC = () => {
             </div>
             
             <div className="space-y-6 relative z-10">
-              <motion.div 
-                whileHover={{ 
-                  scale: 1.15, 
-                  rotate: [0, -5, 5, 0],
-                }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ type: "spring", damping: 12, stiffness: 300 }}
-                className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-4xl group-hover:border-white/40 transition-all duration-500 group-hover:bg-white/10 select-none transform-gpu text-glow"
-              >
+              <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-4xl group-hover:border-white/40 transition-all duration-500 group-hover:scale-110">
                 {topic.emoji}
-              </motion.div>
+              </div>
               
               <div className="space-y-3">
                 <h4 className="text-2xl font-display font-bold tracking-tight group-hover:text-white transition-colors">
@@ -103,9 +95,9 @@ export const TrendingRank: React.FC = () => {
               </div>
 
               <div className="pt-6 flex items-center justify-between border-t border-white/5">
-                <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-white/20">
+                <div className="flex items-center gap-2 text-[9px] uppercase tracking-widest text-white/20">
                   <div className="w-1 h-1 bg-green-500 rounded-full" />
-                  AI 实时解析
+                  AI 实时解析 / AI ANALYSIS
                 </div>
                 <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/40 transition-colors">
                   <Info size={14} className="text-white/20 group-hover:text-white/60" />
@@ -140,24 +132,15 @@ export const TrendingRank: React.FC = () => {
                 <X size={20} />
               </button>
 
-              <div className="w-full md:w-5/12 h-80 md:h-auto relative flex items-center justify-center bg-white/5 border-r border-white/5 overflow-hidden cursor-pointer">
+              <div className="w-full md:w-5/12 h-80 md:h-auto relative flex items-center justify-center bg-white/5 border-r border-white/5">
                 <motion.div
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  whileHover={{ 
-                    scale: 1.1, 
-                    rotate: 5,
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{
-                    scale: { type: "spring", damping: 15, stiffness: 200 },
-                    opacity: { duration: 0.8 }
-                  }}
-                  className="text-[140px] md:text-[180px] select-none transition-all duration-300 transform-gpu text-glow"
+                  className="text-[120px] md:text-[160px] drop-shadow-[0_0_40px_rgba(255,255,255,0.1)] select-none"
                 >
                   {selectedTopic.emoji}
                 </motion.div>
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent md:bg-gradient-to-r pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent md:bg-gradient-to-r" />
               </div>
 
               <div className="flex-1 p-10 md:p-16 overflow-y-auto custom-scrollbar">
@@ -188,8 +171,8 @@ export const TrendingRank: React.FC = () => {
                         <span className="text-[10px] uppercase tracking-widest text-white/20">Updated 2 mins ago</span>
                       </div>
                     </div>
-                    <button className="btn-primary !py-3 !px-8 !text-[10px] uppercase tracking-widest">
-                      分享知识
+                    <button className="btn-primary !py-3 !px-8 !text-[9px] uppercase tracking-widest">
+                      分享知识 / SHARE
                     </button>
                   </div>
                 </div>

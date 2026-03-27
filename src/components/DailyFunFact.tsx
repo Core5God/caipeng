@@ -50,31 +50,23 @@ export const DailyFunFact: React.FC = () => {
     >
       <div className="flex flex-col lg:flex-row min-h-[500px]">
         {/* Emoji Section */}
-        <div className="w-full lg:w-1/2 h-[400px] lg:h-auto relative overflow-hidden flex items-center justify-center bg-white/5 border-r border-white/5 cursor-pointer">
+        <div className="w-full lg:w-1/2 h-[300px] lg:h-auto relative overflow-hidden flex items-center justify-center bg-white/5 border-r border-white/5">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ 
-              scale: { type: "spring", damping: 12, stiffness: 200 },
-              opacity: { duration: 0.8 }
-            }}
-            whileHover={{ 
-              scale: 1.1, 
-              rotate: 5,
-            }}
-            whileTap={{ scale: 0.95, rotate: -5 }}
-            className="text-[140px] md:text-[200px] lg:text-[240px] select-none transition-all duration-300 transform-gpu text-glow"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-[120px] md:text-[180px] lg:text-[220px] drop-shadow-[0_0_50px_rgba(255,255,255,0.1)] select-none"
           >
             {fact.emoji}
           </motion.div>
           
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-black/40 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-black/40 via-transparent to-transparent" />
           
           <div className="absolute bottom-8 left-8 flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center">
               <Sparkles className="w-5 h-5 text-white/60" />
             </div>
-            <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/80">每日科普精选</span>
+            <span className="text-[9px] uppercase tracking-[0.3em] font-bold text-white/80">每日科普精选 / DAILY SELECTION</span>
           </div>
         </div>
 
@@ -83,7 +75,7 @@ export const DailyFunFact: React.FC = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-4 text-white/30">
               <div className="h-[1px] w-8 bg-white/20" />
-              <span className="text-[10px] uppercase tracking-[0.4em] font-bold">Science Daily</span>
+              <span className="text-[9px] uppercase tracking-[0.4em] font-bold">Science Daily / 每日科学</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight leading-tight">
               {fact.title}
@@ -102,8 +94,8 @@ export const DailyFunFact: React.FC = () => {
                 </div>
               ))}
             </div>
-            <span className="text-[10px] uppercase tracking-widest text-white/20">
-              与 1.2k+ 探索者共同学习
+            <span className="text-[9px] uppercase tracking-widest text-white/20">
+              与 1.2k+ 探索者共同学习 / JOIN 1.2K+ EXPLORERS
             </span>
           </div>
         </div>

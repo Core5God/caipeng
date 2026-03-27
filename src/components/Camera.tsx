@@ -70,11 +70,11 @@ export const Camera: React.FC<CameraProps> = ({ onCapture, isProcessing }) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
+      reader.onload = () => {
         const img = new Image();
         img.onload = () => {
           const canvas = document.createElement('canvas');
-          const MAX_SIZE = 1024;
+          const MAX_SIZE = 1200; // Slightly larger for better quality
           let width = img.width;
           let height = img.height;
           
@@ -93,11 +93,24 @@ export const Camera: React.FC<CameraProps> = ({ onCapture, isProcessing }) => {
           canvas.width = width;
           canvas.height = height;
           const ctx = canvas.getContext('2d');
-          ctx?.drawImage(img, 0, 0, width, height);
-          const base64 = canvas.toDataURL('image/jpeg', 0.7).split(',')[1];
-          onCapture(base64);
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, width, height);
+            const base64 = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
+            onCapture(base64);
+          }
+          // Reset input so the same file can be selected again
+          if (fileInputRef.current) fileInputRef.current.value = '';
+        };
+        img.onerror = () => {
+          console.error("Image load error");
+          alert("图片加载失败，请换一张试试。");
+          if (fileInputRef.current) fileInputRef.current.value = '';
         };
         img.src = reader.result as string;
+      };
+      reader.onerror = () => {
+        console.error("File read error");
+        alert("文件读取失败。");
       };
       reader.readAsDataURL(file);
     }
